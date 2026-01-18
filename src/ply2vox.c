@@ -28,16 +28,16 @@ long read_ply(char *path, SDL_Color **morton)
   long max = 0;
   long *indexs = malloc(vertex_count * sizeof(long));
   for (int i = 0; i < vertex_count; i++) {
-    unsigned int x = vertexs[i].x * 2;
-    unsigned int y = vertexs[i].y * 2;
-    unsigned int z = vertexs[i].z * 2;
+    unsigned int x = vertexs[i].x;
+    unsigned int y = vertexs[i].y;
+    unsigned int z = vertexs[i].z;
     indexs[i] = zorder(x, y, z);
     if (max < indexs[i])
         max = indexs[i];
   }
   *morton = calloc(max + 1, sizeof(int));
   for (int i = 0; i < vertex_count; i++) {
-    (*morton)[indexs[i]] = (SDL_Color){.r = vertexs[i].r, .g = vertexs[i].g, .b = vertexs[i].b, .a = 1};
+    (*morton)[indexs[i]] = (SDL_Color){.r = vertexs[i].r, .g = vertexs[i].g, .b = vertexs[i].b, .a = UINT8_MAX};
   }
   return max + 1;
 }
