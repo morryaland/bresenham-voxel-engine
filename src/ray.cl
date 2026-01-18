@@ -14,7 +14,7 @@ inline unsigned long zorder(unsigned int x, unsigned int y, unsigned int z)
   return inflation(x) | (inflation(y) << 1) | (inflation(z) << 2);
 }
 
-uchar4 plotLine3d(__constant uchar4 *morton, int morton_c, int x0, int y0, int z0, int x1, int y1, int z1)
+uchar4 plotLine3d(__global uchar4 *morton, int morton_c, int x0, int y0, int z0, int x1, int y1, int z1)
 {
    int dx = abs(x1-x0), sx = x0<x1 ? 1 : -1;
    int dy = abs(y1-y0), sy = y0<y1 ? 1 : -1; 
@@ -32,8 +32,8 @@ uchar4 plotLine3d(__constant uchar4 *morton, int morton_c, int x0, int y0, int z
 }
 
 __kernel void raycast(__write_only image2d_t screen,
-                      __constant uchar4 *morton,
-                      __constant float *tm,
+                      __global uchar4 *morton,
+                      __global float *tm,
                       const int morton_c,
                       const int ray_dist,
                       const int x,

@@ -122,7 +122,7 @@ int main(int argc, char **argv)
     assert(ret == CL_SUCCESS && "write tm error");
     ret = clEnqueueNDRangeKernel(queue, kern, 2, NULL, (size_t[]){screen->w, screen->h}, NULL, 0, NULL, NULL);
     assert(ret == CL_SUCCESS && "run kernel error");
-    ret = clEnqueueReadImage(queue, clscreen, true, (const size_t[]){ 0, 0, 0 }, (const size_t[]){ screen->w, screen->h, 1 }, screen->pitch, 0, screen->pixels, 0, NULL, NULL);
+    ret = clEnqueueReadImage(queue, clscreen, true, (const size_t[]){ 0, 0, 0 }, (const size_t[]){ screen->w, screen->h, 1 }, 0, 0, screen->pixels, 0, NULL, NULL);
     assert(ret == CL_SUCCESS && "read screen from clscreen error");
     SDL_BlitSurface(screen, NULL, sur, NULL);
     SDL_UpdateWindowSurface(wind);
